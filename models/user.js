@@ -16,7 +16,11 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    messages: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Message'
+    }]
 });
 
 userSchema.pre('save', async function(next) {
