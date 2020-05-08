@@ -6,7 +6,8 @@ const express       = require('express'),
       db            = require('./models'),
       errorHandler  = require('./controllers/error'),
       authRoutes    = require('./routes/auth'),
-      messageRoutes = require('./routes/messages');
+      messageRoutes = require('./routes/messages'),
+      {loginRequired} = require('./middleware/auth');
 
 const PORT = process.env.PORT || 8080;
 
@@ -14,9 +15,13 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api/auth', authRoutes);
-app.use('/api/users/:id/messages', messageRoutes);
+app.use(
+    '/api/users/:id/messages',
+    loginRequired,
+    messageRoutes
+);
 
-app.get('/api/messages', async function(req, res, next) {
+app.get('/api/messages', loginRequired, async function(req, res, next) {
    try {
        let messages = await db.Message.find()
            .sort({createdAt: -1})
