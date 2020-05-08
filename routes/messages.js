@@ -1,6 +1,6 @@
 const express = require('express'),
       router = express.Router({mergeParams: true}),
-      {createMessage, getMessage, deleteMessage} = require('../controllers/messages');
+      {createMessage, getMessage, updateMessage, deleteMessage} = require('../controllers/messages');
 
 router
     .route('/')
@@ -9,6 +9,7 @@ router
 router
     .route('/:message_id')
     .get(getMessage)
+    .put(updateMessage)
     .delete(deleteMessage);
 
 module.exports = router;

@@ -27,6 +27,17 @@ exports.getMessage = async function(req, res, next) {
   }
 };
 
+exports.updateMessage = async function(req, res, next) {
+    try {
+        let updatedMessage = await db.Message.updateOne({_id: req.params.message_id}, {
+            message: req.body.message
+        });
+        return res.status(200).json(updatedMessage);
+    } catch (err) {
+        next(err);
+    }
+};
+
 exports.deleteMessage = async function (req, res, next) {
     try {
         let foundMessage = await db.Message.findById(req.params.message_id);
@@ -35,4 +46,4 @@ exports.deleteMessage = async function (req, res, next) {
     } catch (err) {
         next(err);
     }
-}
+};
