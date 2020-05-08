@@ -1,13 +1,13 @@
 require('dotenv').config();
-const express       = require('express'),
-      app           = express(),
-      cors          = require('cors'),
-      bodyParser    = require('body-parser'),
-      db            = require('./models'),
-      errorHandler  = require('./controllers/error'),
-      authRoutes    = require('./routes/auth'),
-      messageRoutes = require('./routes/messages'),
-      {loginRequired} = require('./middleware/auth');
+const express                            = require('express'),
+      app                                = express(),
+      cors                               = require('cors'),
+      bodyParser                         = require('body-parser'),
+      db                                 = require('./models'),
+      errorHandler                       = require('./controllers/error'),
+      authRoutes                         = require('./routes/auth'),
+      messageRoutes                      = require('./routes/messages'),
+      {loginRequired, ensureCorrectUser} = require('./middleware/auth');
 
 const PORT = process.env.PORT || 8080;
 
@@ -18,6 +18,7 @@ app.use('/api/auth', authRoutes);
 app.use(
     '/api/users/:id/messages',
     loginRequired,
+    ensureCorrectUser,
     messageRoutes
 );
 
