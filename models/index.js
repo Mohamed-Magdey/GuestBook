@@ -7,3 +7,5 @@ mongoose.connect(DB_URI, {
     useUnifiedTopology: true,
     useCreateIndex: true
 });
+
+module.exports.User = require('./user');
