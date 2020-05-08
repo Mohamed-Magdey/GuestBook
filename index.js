@@ -36,6 +36,9 @@ app.get('/api/messages', loginRequired, async function(req, res, next) {
            .sort({createdAt: -1})
            .populate("user", {
                username: true,
+           }).populate({
+               path: "replies",
+               populate: {path: "user", select: "username"}
            });
        return res.status(200).json(messages);
    } catch (err) {
