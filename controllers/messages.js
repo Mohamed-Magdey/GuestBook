@@ -12,7 +12,7 @@ exports.createMessage = async function(req, res, next) {
         let foundMessage = await db.Message.findById(message._id).populate('user', {
             username: true
         });
-        return res.status(200).json(foundMessage);
+        return res.status(201).json(foundMessage);
     } catch (err) {
         return next(err);
     }

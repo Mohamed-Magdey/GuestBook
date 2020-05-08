@@ -7,6 +7,7 @@ const express                            = require('express'),
       errorHandler                       = require('./controllers/error'),
       authRoutes                         = require('./routes/auth'),
       messageRoutes                      = require('./routes/messages'),
+      replieRoutes                       = require('./routes/replies'),
       {loginRequired, ensureCorrectUser} = require('./middleware/auth');
 
 const PORT = process.env.PORT || 8080;
@@ -20,6 +21,13 @@ app.use(
     loginRequired,
     ensureCorrectUser,
     messageRoutes
+);
+
+app.use(
+    '/api/users/:id/messages/:message_id/replies',
+    loginRequired,
+    ensureCorrectUser,
+    replieRoutes
 );
 
 app.get('/api/messages', loginRequired, async function(req, res, next) {
