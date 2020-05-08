@@ -31,16 +31,8 @@ exports.deleteReply = async function (req, res, next) {
         let foundReply = await db.Reply.findById(req.params.reply_id).populate("user", {
             id: true
         });
-
-        if(foundReply.user.id === req.params.id) {
-            await foundReply.remove();
-            return res.status(200).json(foundReply);
-        } else {
-            return next({
-                status: 401,
-                message: "You don't have permission to do that"
-            });
-        }
+        await foundReply.remove();
+        return res.status(200).json(foundReply);
     } catch (err) {
         return next({
             status: 401,
