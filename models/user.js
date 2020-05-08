@@ -20,6 +20,10 @@ const userSchema = mongoose.Schema({
     messages: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Message'
+    }],
+    replies: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Reply'
     }]
 });
 
