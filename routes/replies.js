@@ -1,9 +1,13 @@
 const express = require('express'),
       router = express.Router({mergeParams: true}),
-      {createReply} =require('../controllers/reply');
+      {createReply, deleteReply} =require('../controllers/reply');
 
 router
     .route('/')
     .post(createReply);
+
+router
+    .route('/:reply_id')
+    .delete(deleteReply);
 
 module.exports = router;
