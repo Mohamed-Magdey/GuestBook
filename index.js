@@ -3,15 +3,21 @@ const express                            = require('express'),
       app                                = express(),
       cors                               = require('cors'),
       bodyParser                         = require('body-parser'),
+      helmet                             = require('helmet'),
       db                                 = require('./models'),
       errorHandler                       = require('./controllers/error'),
       authRoutes                         = require('./routes/auth'),
       messageRoutes                      = require('./routes/messages'),
-      replieRoutes                       = require('./routes/replies'),
+      replyRoutes                       = require('./routes/replies'),
       {loginRequired, ensureCorrectUser} = require('./middleware/auth');
 
 const PORT = process.env.PORT || 8080;
 
+app.use(helmet({
+    hidePoweredBy: {
+        setTo: 'PHP 7.4.5'
+    }
+}));
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -27,7 +33,7 @@ app.use(
     '/api/users/:id/messages/:message_id/replies',
     loginRequired,
     ensureCorrectUser,
-    replieRoutes
+    replyRoutes
 );
 
 app.get('/api/messages', loginRequired, async function(req, res, next) {
