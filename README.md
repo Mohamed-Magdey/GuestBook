@@ -1,6 +1,6 @@
-# GuestBook-Back-End (node.js / Express) <hr/>
+# GuestBook-Back-End (node.js / Express)
 
-## Packages <hr/>
+## Packages
 
 - #### `express`: 
   Is lightweight web application Node.js framework used to make Api 
