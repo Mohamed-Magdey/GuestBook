@@ -63,10 +63,10 @@ app.use((req, res, next) => {
 
 app.use(errorHandler);
 
-https.createServer({
-    key: fs.readFileSync(path.resolve('cert/server.key')),
-    cert: fs.readFileSync(path.resolve('cert/server.crt'))
-}, app)
-    .listen(PORT, () => {
+// https.createServer({
+//     key: fs.readFileSync(path.resolve('cert/server.key')),
+//     cert: fs.readFileSync(path.resolve('cert/server.crt'))
+// }, app)
+    app.listen(PORT, () => {
         console.log(`Server is starting on port ${PORT}`);
     });
