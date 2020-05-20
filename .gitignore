@@ -2,5 +2,4 @@
 
 /.env
 
-/server.cert
-/server.key
+/cert

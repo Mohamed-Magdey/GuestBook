@@ -1,5 +1,8 @@
 require('dotenv').config();
 const express                            = require('express'),
+      path                               = require('path'),
+      https                              = require('https'),
+      fs                                 = require('fs'),
       app                                = express(),
       cors                               = require('cors'),
       bodyParser                         = require('body-parser'),
@@ -60,6 +63,10 @@ app.use((req, res, next) => {
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-    console.log(`Server is starting on port ${PORT}`);
-});
+https.createServer({
+    key: fs.readFileSync(path.resolve('cert/server.key')),
+    cert: fs.readFileSync(path.resolve('cert/server.crt'))
+}, app)
+    .listen(PORT, () => {
+        console.log(`Server is starting on port ${PORT}`);
+    });
